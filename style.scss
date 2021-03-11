@@ -29,29 +29,68 @@ body{
 .drawPile{
     grid-area: draw;
     background-color: black;
+    width: 12rem;
+    height: 8rem;
+    border-radius: 25px;
+    border: 2px black solid;
 }
 .discardPile{
     grid-area: discard;
-    background-color: blue;
+    background-color: black;
+    width: 12rem;
+    height: 8rem;
+    border-radius: 25px;
+    text-align: center;
+    line-height: 8rem;
+    border: 2px black solid;
+    font-size: 2rem;
 }
 .hand{
-    height: 12rem;
-    background-color: purple;
+    height: 14.4rem;
     display: flex;
+    flex-wrap: nowrap;
     justify-content: center;
+    align-content: center;
     gap: 2px;
+    overflow-x: auto;
+    overflow-y: hidden;
 
     .card{
+        position: relative;
+        margin-top: 2.4rem;
+        bottom: 2.4rem;
         background-color: black;
-        border: 1px black solid;
+        border: 2px black solid;
         width: 8rem;
-        height: 100%;
+        min-width: 8rem;
+        height: 12rem;
+        min-height: 12rem;
         color: black;
         text-align: center;
         line-height: 12rem;
         font-size: 2rem;
         border-radius: 25px;
+        transition: all 0.1s;
+        -webkit-user-select: none;
+
+        &:hover{
+            width: 9.6rem;
+            min-width: 9.6rem;
+            height: 14.4rem;
+            min-height: 14.4rem;
+            font-size: 2.4rem;
+            line-height: 14.4rem;
+        }
     }
+
+    
+}
+
+::-webkit-scrollbar{
+    background: transparent;
+}
+::-webkit-scrollbar-thumb{
+    background-color: purple;
 }
 
 .button-container{
@@ -64,4 +103,5 @@ button{
     border: none;
     height: 2rem;
     width: 10rem;
+    outline: none;
 }
