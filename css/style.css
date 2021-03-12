@@ -19,9 +19,27 @@ body {
 .game-container {
   display: -ms-grid;
   display: grid;
-      grid-template-areas: ". draw . . button " ". . . . . " ". . discard . ." ". . . . . ";
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+      grid-template-areas: ". draw . . button instructions " ". . . . . instructions" ". . discard discard . instructions" ". . . . . .";
   height: 60vh;
   margin-top: 3vh;
+}
+
+.instructions {
+  position: absolute;
+  right: 3rem;
+  width: 20rem;
+  top: 1rem;
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: black;
+}
+
+.instructions ul {
+  margin-left: 2rem;
+  font-weight: normal;
 }
 
 .drawPile {
@@ -38,6 +56,7 @@ body {
 .discardPile {
   -ms-grid-row: 3;
   -ms-grid-column: 3;
+  -ms-grid-column-span: 2;
   grid-area: discard;
   background-color: black;
   width: 12rem;

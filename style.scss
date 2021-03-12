@@ -17,13 +17,28 @@ body{
 
 .game-container{
     display: grid;
+    justify-content: center;
     grid-template-areas: 
-    ". draw . . button "
-    ". . . . . "
-    ". . discard . ."
-    ". . . . . ";   
+    ". draw . . button instructions "
+    ". . . . . instructions"
+    ". . discard discard . instructions"
+    ". . . . . .";   
     height: 60vh;
     margin-top: 3vh;
+}
+
+.instructions{
+    position: absolute;
+    right: 3rem;
+    width: 20rem;
+    top: 1rem;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: rgb(0, 0, 0);
+    ul{
+        margin-left: 2rem;
+        font-weight: normal;
+    }
 }
 
 .drawPile{

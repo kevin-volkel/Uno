@@ -1,8 +1,7 @@
     $(function(){
     let handContainer = document.getElementById("hand")
-    let topCard = "";
     let deck = {
-        cards : ['r0', 'r1', 'r2', 'r3', 'r4', 'r5', 'r6', 'r7', 'r8', 'r9', 'rPlus2', 'rReverse', 'rSkip', 'r1', 'r2', 'r3', 'r4', 'r5', 'r6', 'r7', 'r8', 'r9', 'rPlus2', 'rReverse', 'rSkip','b0', 'b1', 'b2', 'b3', 'b4', 'b5', 'b6', 'b7', 'b8', 'b9', 'bPlus2', 'bReverse', 'bSkip', 'b1', 'b2', 'b3', 'b4', 'b5', 'b6', 'b7', 'b8', 'b9', 'bPlus2', 'bReverse', 'bSkip','g0', 'g1', 'g2', 'g3', 'g4', 'g5', 'g6', 'g7', 'g8', 'g9', 'gPlus2', 'gReverse', 'gSkip', 'g1', 'g2', 'g3', 'g4', 'g5', 'g6', 'g7', 'g8', 'g9', 'gPlus2', 'gReverse', 'gSkip','y0', 'y1', 'y2', 'y3', 'y4', 'y5', 'y6', 'y7', 'y8', 'y9', 'yPlus2', 'yReverse', 'ySkip', 'y1', 'y2', 'y3', 'y4', 'y5', 'y6', 'y7', 'y8', 'y9', 'yPlus2', 'yReverse', 'ySkip','BWild', 'BPlus4','BWild', 'BPlus4','BWild', 'BPlus4','BWild', 'BPlus4',],
+        cards : ['r0', 'r1', 'r2', 'r3', 'r4', 'r5', 'r6', 'r7', 'r8', 'r9', 'rPlus2', 'rFiftyFifty', 'rDiscard', 'r1', 'r2', 'r3', 'r4', 'r5', 'r6', 'r7', 'r8', 'r9', 'rPlus2', 'rFiftyFifty', 'rDiscard','b0', 'b1', 'b2', 'b3', 'b4', 'b5', 'b6', 'b7', 'b8', 'b9', 'bPlus2', 'bFiftyFifty', 'bDiscard', 'b1', 'b2', 'b3', 'b4', 'b5', 'b6', 'b7', 'b8', 'b9', 'bPlus2', 'bFiftyFifty', 'bDiscard','g0', 'g1', 'g2', 'g3', 'g4', 'g5', 'g6', 'g7', 'g8', 'g9', 'gPlus2', 'gFiftyFifty', 'gDiscard', 'g1', 'g2', 'g3', 'g4', 'g5', 'g6', 'g7', 'g8', 'g9', 'gPlus2', 'gFiftyFifty', 'gDiscard','y0', 'y1', 'y2', 'y3', 'y4', 'y5', 'y6', 'y7', 'y8', 'y9', 'yPlus2', 'yFiftyFifty', 'yDiscard', 'y1', 'y2', 'y3', 'y4', 'y5', 'y6', 'y7', 'y8', 'y9', 'yPlus2', 'yFiftyFifty', 'yDiscard','BWild', 'BPlus4','BWild', 'BPlus4','BWild', 'BPlus4','BWild', 'BPlus4',],
         shuffle : function(cards = this.cards){
             let shufflingCards = [];
             
@@ -18,7 +17,6 @@
             for(let i = 0; i < shufflingCards.length; i++){
                 this.drawPile.push(shufflingCards[i])
             }
-            console.log(this.drawPile)
 
         },
         drawPile: [],
@@ -106,12 +104,57 @@
         if(topColor == newColor || topType == newType || newType == "Wild" || newType == "Plus4" || topType == "Wild" || topType == "Plus4"){
             changeTopCard(card);
             $(`[card = ${card}]`)[0].remove();
+            if(newType == 'Plus4'){
+                removeCards(4);
+            }
+            if(newType == 'Plus2'){
+                removeCards(2);
+            }
+            if(newType == 'FiftyFifty'){
+                fiftyFifty();
+            }
+            if(newType == 'Discard'){
+                discardAll(newColor);
+            }
+
         }
         
         if($('.card').length == 0){
             alert("CONGRATULATIONS! YOU WIN!")
         }
     }
+
+    function removeCards(amount){
+        let hand = $('.card');
+        if(amount > hand.length){
+            amount = hand.length;
+        }
+        for(let i = 0; i < amount; i++){
+            hand = $('.card');
+            let randy = Math.floor(Math.random() * hand.length)
+            deck.discardPile.push($(hand[randy]).attr('card'))
+            hand[randy].remove();
+        }
+    }
+    function fiftyFifty(){
+        let randy = Math.floor(Math.random() * 2)
+        if(randy == 0){
+            drawCard();
+        }else{
+            removeCards(1)
+        }
+    }
+    function discardAll(color){
+        let hand = $('.card');
+        for(let i = 0; i < hand.length; i++){
+            if(color == $(hand[i]).attr('card').charAt(0)){
+                deck.discardPile.push($(hand[i]).attr('card'))
+                $(hand[i]).remove();
+            }
+        }
+    }
+
+    
 
     function changeTopCard(newCard){
         deck.discardPile.push(deck.topCard)
